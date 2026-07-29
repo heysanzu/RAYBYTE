@@ -1,1 +1,1 @@
-Collecting resources for Project
+Collecting resources for project and agentic AI
