@@ -11,3 +11,11 @@ affect the marks of students.
 
 A few visual aids like graphs and confusion matrix have been created, to show the results.
 Also additional heatmaps and other charts have been added to further demonstrate how data modelling and engineering works.
+
+## Project (2025-26)
+- **Leader:** *Shahnewaz* *`@heysanzu`*
+- Member 1: *Akash*
+- Member 2: *Abhishek*
+- Member 3: *Kriti*
+- Member 4: *Nisha*
+- Member 5: *Sandip*
