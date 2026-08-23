@@ -1,4 +1,4 @@
-# Performance Prediction (ML)
+# Prediction (ML)
 This is a simple machine learning project using classifiers for predicting factors which affect student grades, using data from CSV file
 
 
@@ -14,8 +14,8 @@ Also additional heatmaps and other charts have been added to further demonstrate
 
 ## Project (2025-26)
 - **Leader:** *Shahnewaz* *`@heysanzu`*
-- Member 1: *Akash*
-- Member 2: *Abhishek*
-- Member 3: *Kriti*
+- Co-leader 1: *Abhishek*
+- Co-leader 2: *Kriti*
+- Member 3: *Akash*
 - Member 4: *Nisha*
 - Member 5: *Sandip*
