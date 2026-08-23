@@ -16,10 +16,11 @@ affect the marks of students.
 A few visual aids like graphs and confusion matrix have been created, to show the results.
 Also additional heatmaps and other charts have been added to further demonstrate how data modelling and engineering works.
 
-## Project (2025-26)
-- **Leader:** *Shahnewaz* *`@heysanzu`*
-- Co-leader 1: *Abhishek*
-- Co-leader 2: *Kriti*
-- Member 3: *Akash*
-- Member 4: *Nisha*
-- Member 5: *Sandip*
+## Team Information (2025–26)
+
+- **Leader:** <img src="https://github.com/heysanzu.png" width="22" height="22" style="border-radius: 50%; vertical-align: middle;"> *Shahnewaz* [`@heysanzu`](https://github.com/heysanzu)
+- **Co-Leader 1:** <img src="https://github.com/Aprav-X.png" width="22" height="22" style="border-radius: 50%; vertical-align: middle;"> *Abhishek* [`@Aprav-X`](https://github.com/Aprav-X)
+- **Co-Leader 2:** <img src="https://github.com/itskriti-s.png" width="22" height="22" style="border-radius: 50%; vertical-align: middle;"> *Kriti* [`@itskriti-s`](https://github.com/itskriti-s)
+- **Member 3:** <img src="https://github.com/deepakashmandal.png" width="22" height="22" style="border-radius: 50%; vertical-align: middle;"> *Akash* [`@deepakashmandal`](https://github.com/deepakashmandal)
+- **Member 4:** <img src="https://github.com/nishamahato114-svg.png" width="22" height="22" style="border-radius: 50%; vertical-align: middle;"> *Nisha* [`@nishamahato114-svg`](https://github.com/nishamahato114-svg)
+- **Member 5:** <img src="https://github.com/sandip-098.png" width="22" height="22" style="border-radius: 50%; vertical-align: middle;"> *Sandip* [`@sandip-098`](https://github.com/sandip-098)
