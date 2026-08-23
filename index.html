@@ -3,701 +3,972 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Final Year Project — BCA 26</title>
+<title>RAYBYTE — Final Year Project · BCA 26</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <link rel="icon" type="image/png" href="sanzu.png">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="sanzu.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --white: #ffffff;
-    --black: #0a0a0a;
-    --grey-100: #f7f7f7;
-    --grey-200: #eeeeee;
-    --grey-300: #d4d4d4;
-    --grey-400: #a3a3a3;
-    --grey-500: #737373;
-    --grey-700: #404040;
-    --grey-900: #171717;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--white);
-    color: var(--black);
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2.5rem;
-    height: 60px;
-    background: rgba(255,255,255,0.72);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--grey-200);
-  }
-
-  .nav-logo {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--black);
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 13px;
-    color: var(--grey-500);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--black); }
-
-  .nav-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    padding: 4px 10px;
-    border: 1px solid var(--grey-300);
-    border-radius: 100px;
-    color: var(--grey-500);
-    background: var(--grey-100);
-  }
-
-  /* HERO */
-  .hero {
-    padding: 160px 2.5rem 100px;
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-  }
-
-  .hero-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--grey-400);
-    margin-bottom: 1.25rem;
-  }
-
-  .hero-title {
-    font-size: clamp(2.2rem, 4vw, 3.4rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    color: var(--black);
-    margin-bottom: 1.25rem;
-  }
-
-  .hero-title .line-muted {
-    color: var(--grey-400);
-    font-weight: 300;
-  }
-
-  .hero-desc {
-    font-size: 15px;
-    color: var(--grey-500);
-    line-height: 1.7;
-    max-width: 420px;
-    margin-bottom: 2rem;
-  }
-
-  .hero-cta-group {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 11px 22px;
-    background: var(--black);
-    color: var(--white);
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: opacity 0.2s;
-    border: none;
-    cursor: pointer;
-  }
-
-  .btn-primary:hover { opacity: 0.8; }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 11px 22px;
-    background: transparent;
-    color: var(--grey-700);
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 500;
-    text-decoration: none;
-    border: 1px solid var(--grey-300);
-    transition: background 0.2s, border-color 0.2s;
-    cursor: pointer;
-  }
-
-  .btn-ghost:hover { background: var(--grey-100); border-color: var(--grey-400); }
-
-  /* HERO CARD */
-  .hero-visual {
-    position: relative;
-  }
-
-  .glass-card {
-    background: rgba(255,255,255,0.65);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--grey-200);
-    border-radius: 20px;
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .glass-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(245,245,245,0.5) 100%);
-    border-radius: 20px;
-    z-index: 0;
-  }
-
-  .glass-card > * { position: relative; z-index: 1; }
-
-  .card-noise {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    border-radius: 20px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-  }
-
-  .card-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--grey-400);
-    letter-spacing: 0.08em;
-  }
-
-  .status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    padding: 3px 10px;
-    background: var(--grey-100);
-    border: 1px solid var(--grey-200);
-    border-radius: 100px;
-    color: var(--grey-500);
-  }
-
-  .status-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--black);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  .model-name {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    color: var(--black);
-    margin-bottom: 4px;
-  }
-
-  .model-sub {
-    font-size: 13px;
-    color: var(--grey-400);
-    margin-bottom: 1.5rem;
-  }
-
-  .stat-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-  }
-
-  .stat-item {
-    background: var(--grey-100);
-    border-radius: 10px;
-    padding: 12px 14px;
-    border: 1px solid var(--grey-200);
-  }
-
-  .stat-val {
-    font-family: 'DM Mono', monospace;
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--black);
-    display: block;
-  }
-
-  .stat-key {
-    font-size: 10px;
-    color: var(--grey-400);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-top: 2px;
-    display: block;
-  }
-
-  .progress-section { margin-top: 0.5rem; }
-
-  .progress-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    color: var(--grey-500);
-    margin-bottom: 6px;
-  }
-
-  .progress-bar {
-    height: 3px;
-    background: var(--grey-200);
-    border-radius: 100px;
-    overflow: hidden;
-    margin-bottom: 8px;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--black);
-    border-radius: 100px;
-    transition: width 1s ease;
-  }
-
-  /* SECTION COMMON */
-  section { max-width: 1100px; margin: 0 auto; padding: 80px 2.5rem; }
-
-  .section-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--grey-400);
-    margin-bottom: 1rem;
-  }
-
-  .section-title {
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: var(--black);
-    margin-bottom: 0.75rem;
-  }
-
-  .section-sub {
-    font-size: 15px;
-    color: var(--grey-500);
-    line-height: 1.7;
-    max-width: 520px;
-    margin-bottom: 3rem;
-  }
-
-  /* DIVIDER */
-  .divider {
-    border: none;
-    border-top: 1px solid var(--grey-200);
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  /* FEATURES */
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  .feature-card {
-    background: var(--grey-100);
-    border: 1px solid var(--grey-200);
-    border-radius: 16px;
-    padding: 1.75rem;
-    transition: border-color 0.2s, background 0.2s;
-  }
-
-  .feature-card:hover {
-    border-color: var(--grey-400);
-    background: var(--white);
-  }
-
-  .feature-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    border: 1px solid var(--grey-300);
-    background: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-
-  .feature-icon svg {
-    width: 18px; height: 18px;
-    stroke: var(--black);
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .feature-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--black);
-    margin-bottom: 0.5rem;
-  }
-
-  .feature-desc {
-    font-size: 13px;
-    color: var(--grey-500);
-    line-height: 1.6;
-  }
-
-  /* TEAM */
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 14px;
-  }
-
-  .team-card {
-    background: var(--grey-100);
-    border: 1px solid var(--grey-200);
-    border-radius: 16px;
-    padding: 1.5rem 1rem;
-    text-align: center;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-
-  .team-card:hover {
-    border-color: var(--grey-400);
-    transform: translateY(-2px);
-  }
-
-  .team-card.leader {
-    background: var(--black);
-    border-color: var(--black);
-    color: var(--white);
-  }
-
-  .avatar {
-    width: 44px; height: 44px;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 0.75rem;
-  }
-
-  .avatar-default {
-    background: var(--grey-200);
-    color: var(--black);
-  }
-
-  .avatar-leader {
-    background: rgba(255,255,255,0.12);
-    color: var(--white);
-    border: 1px solid rgba(255,255,255,0.2);
-  }
-
-  .team-name {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 3px;
-  }
-
-  .team-role {
-    font-size: 11px;
-    color: var(--grey-400);
-  }
-
-  .team-role-leader {
-    font-size: 11px;
-    color: rgba(255,255,255,0.5);
-  }
-
-  .team-handle {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: rgba(255,255,255,0.4);
-    margin-top: 2px;
-  }
-
-  .leader-badge {
-    display: inline-block;
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    background: rgba(255,255,255,0.12);
-    border-radius: 100px;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 0.5rem;
-  }
-
-  /* STACK */
-  .stack-section {
-    background: var(--grey-100);
-    border-top: 1px solid var(--grey-200);
-    border-bottom: 1px solid var(--grey-200);
-  }
-
-  .stack-section section {
-    padding: 60px 2.5rem;
-  }
-
-  .stack-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-  }
-
-  .stack-item {
-    background: var(--white);
-    border: 1px solid var(--grey-200);
-    border-radius: 12px;
-    padding: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .stack-icon {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    background: var(--grey-100);
-    border: 1px solid var(--grey-200);
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .stack-icon svg {
-    width: 15px; height: 15px;
-    stroke: var(--grey-700);
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .stack-name {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--black);
-  }
-
-  .stack-cat {
-    font-size: 11px;
-    color: var(--grey-400);
-  }
-
-  /* TIMELINE */
-  .timeline {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    top: 22px;
-    left: calc(12.5% + 1px);
-    right: calc(12.5% + 1px);
-    height: 1px;
-    background: var(--grey-300);
-    z-index: 0;
-  }
-
-  .timeline-step {
-    text-align: center;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .tl-dot {
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    border: 1px solid var(--grey-300);
-    background: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--grey-500);
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-  }
-
-  .timeline-step.active .tl-dot {
-    background: var(--black);
-    border-color: var(--black);
-    color: var(--white);
-  }
-
-  .tl-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--black);
-    margin-bottom: 4px;
-  }
-
-  .tl-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--grey-400);
-  }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--grey-200);
-    padding: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .footer-logo {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--grey-400);
-  }
-
-  .footer-copy {
-    font-size: 12px;
-    color: var(--grey-400);
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .footer-links a {
-    font-size: 12px;
-    color: var(--grey-400);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover { color: var(--black); }
-
-  /* ABSTRACT BG MESH */
-  .bg-mesh {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .mesh-blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.06;
-    background: var(--black);
-  }
-
-  .mesh-blob-1 { width: 600px; height: 600px; top: -200px; right: -100px; }
-  .mesh-blob-2 { width: 400px; height: 400px; bottom: 100px; left: -100px; }
-  .mesh-blob-3 { width: 300px; height: 300px; top: 40%; left: 30%; }
-
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; gap: 2.5rem; }
-    .features-grid { grid-template-columns: repeat(2, 1fr); }
-    .team-grid { grid-template-columns: repeat(3, 1fr); }
-    .stack-grid { grid-template-columns: repeat(2, 1fr); }
-    .timeline { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-    .timeline::before { display: none; }
-  }
-
-  @media (max-width: 600px) {
-    nav { padding: 0 1.25rem; }
-    .nav-links { display: none; }
-    section { padding: 60px 1.25rem; }
-    .hero { padding: 120px 1.25rem 60px; }
-    .features-grid { grid-template-columns: 1fr; }
-    .team-grid { grid-template-columns: repeat(2, 1fr); }
-    .stack-grid { grid-template-columns: 1fr; }
-    .timeline { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; }
-    .footer-links { justify-content: center; }
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0a0a0a;
+  --bg-2:      #111111;
+  --bg-3:      #181818;
+  --card:      #141414;
+  --card-2:    #1c1c1c;
+  --border:    #242424;
+  --border-2:  #333333;
+  --white:     #ffffff;
+  --off-white: #f2f2f2;
+  --grey-1:    #e0e0e0;
+  --grey-2:    #a0a0a0;
+  --grey-3:    #666666;
+  --grey-4:    #404040;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--off-white);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+
+/* ====== CANVAS ====== */
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ====== NAV ====== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  background: rgba(10,10,10,0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+}
+
+.logo-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--white);
+  animation: blink 2.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity:1; }
+  50% { opacity:0.25; }
+}
+
+.nav-center {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-center a {
+  font-family: 'Sora', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--grey-2);
+  text-decoration: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.nav-center a:hover { color: var(--white); }
+
+.nav-badge {
+  font-family: 'Sora', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  color: var(--grey-3);
+  background: var(--bg-3);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* hamburger */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--grey-1);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 60px; left: 0; right: 0;
+  background: rgba(10,10,10,0.97);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  z-index: 998;
+  padding: 1.5rem 2rem;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--grey-1);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover { color: var(--white); }
+
+/* ====== HERO ====== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 120px 2rem 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-eyebrow {
+  font-family: 'Sora', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey-2);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 22px; height: 1px;
+  background: var(--grey-3);
+}
+
+.hero-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  margin-bottom: 1.25rem;
+}
+.hero-title .outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--grey-3);
+}
+
+.hero-desc {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--grey-2);
+  line-height: 1.75;
+  max-width: 420px;
+  margin-bottom: 2rem;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 22px;
+  background: var(--white);
+  color: var(--bg);
+  border-radius: 9px;
+  font-family: 'Sora', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 22px;
+  background: transparent;
+  color: var(--grey-2);
+  border-radius: 9px;
+  font-family: 'Sora', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  border: 1px solid var(--border-2);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.btn-ghost:hover { color: var(--white); border-color: var(--grey-4); background: rgba(255,255,255,0.04); }
+
+/* ====== HERO CARD ====== */
+.hero-visual { perspective: 900px; }
+
+.card-3d-wrap { transform-style: preserve-3d; }
+
+.glass-card {
+  background: var(--card);
+  border: 1px solid var(--border-2);
+  border-radius: 20px;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.card-shimmer {
+  position: absolute;
+  top: 0; left: -80%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.035), transparent);
+  animation: shimmer 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes shimmer { 0%{left:-80%} 100%{left:130%} }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.card-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--grey-3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Sora', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  color: var(--grey-2);
+}
+.status-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--white);
+  animation: blink 2s ease-in-out infinite;
+}
+
+.model-name {
+  font-family: 'Sora', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  margin-bottom: 3px;
+  line-height: 1;
+}
+.model-sub {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--grey-3);
+  margin-bottom: 1.5rem;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+.stat-item {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 10px;
+}
+.stat-val {
+  font-family: 'Sora', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-key {
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--grey-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.progress-section { margin-top: 0.25rem; }
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--grey-2);
+  margin-bottom: 6px;
+}
+.progress-label span:last-child {
+  font-family: 'Sora', sans-serif;
+  font-size: 10px;
+  color: var(--grey-1);
+}
+.progress-bar {
+  height: 2px;
+  background: var(--border);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--white);
+  border-radius: 100px;
+  width: 0;
+}
+
+/* ====== SCROLL INDICATOR ====== */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  color: var(--grey-3);
+  font-family: 'Sora', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.scroll-mouse {
+  width: 22px; height: 34px;
+  border: 1.5px solid var(--border-2);
+  border-radius: 11px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 5px;
+}
+.scroll-wheel {
+  width: 2px; height: 5px;
+  background: var(--grey-2);
+  border-radius: 2px;
+  animation: wheel 1.8s ease-in-out infinite;
+}
+@keyframes wheel {
+  0%{transform:translateY(0);opacity:1}
+  80%{transform:translateY(9px);opacity:0}
+  100%{transform:translateY(0);opacity:1}
+}
+
+/* ====== SECTION BASE ====== */
+.section-wrap {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 90px 2rem;
+}
+
+.section-eyebrow {
+  font-family: 'Sora', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey-3);
+  margin-bottom: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 18px; height: 1px;
+  background: var(--grey-4);
+}
+
+.section-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 0.625rem;
+}
+
+.section-sub {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--grey-2);
+  line-height: 1.75;
+  max-width: 500px;
+  margin-bottom: 3rem;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ====== REVEAL ====== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.rd1 { transition-delay: 0.08s; }
+.rd2 { transition-delay: 0.16s; }
+.rd3 { transition-delay: 0.24s; }
+.rd4 { transition-delay: 0.32s; }
+.rd5 { transition-delay: 0.40s; }
+.rd6 { transition-delay: 0.48s; }
+
+/* ====== ABOUT ====== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.about-text p {
+  font-size: 14px;
+  color: var(--grey-2);
+  line-height: 1.8;
+  margin-bottom: 1.1rem;
+}
+.about-text p strong { color: var(--off-white); font-weight: 600; }
+.about-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 1.25rem;
+}
+.tag {
+  font-family: 'Sora', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 4px 11px;
+  background: var(--bg-3);
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  color: var(--grey-2);
+}
+
+.about-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.metric-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.metric-card:hover { border-color: var(--border-2); transform: translateY(-2px); }
+.metric-val {
+  font-family: 'Sora', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.metric-val sup { font-size: 16px; color: var(--grey-2); }
+.metric-label { font-size: 12px; font-weight: 400; color: var(--grey-3); line-height: 1.45; }
+
+/* ====== FEATURES ====== */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.feature-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.feature-card:hover { border-color: var(--border-2); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+.feature-card:hover::before { opacity: 1; }
+.feature-icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--border-2);
+  background: var(--bg-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.feature-icon svg {
+  width: 16px; height: 16px;
+  stroke: var(--grey-1);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.feature-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--off-white);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+.feature-desc { font-size: 12px; font-weight: 400; color: var(--grey-2); line-height: 1.65; }
+
+/* ====== TEAM ====== */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+.team-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.25rem 0.875rem;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.team-card::after {
+  content:'';
+  position: absolute;
+  bottom:0; left:0; right:0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.team-card:hover { border-color: var(--border-2); transform: translateY(-3px); }
+.team-card:hover::after { opacity: 1; }
+.team-card.leader {
+  background: var(--card-2);
+  border-color: var(--border-2);
+}
+.avatar {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.75rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+.avatar-default {
+  background: var(--bg-3);
+  border: 1px solid var(--border-2);
+  font-family: 'Sora', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--grey-2);
+}
+.leader-badge {
+  display: inline-block;
+  font-family: 'Sora', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  color: var(--grey-2);
+  margin-bottom: 0.5rem;
+}
+.team-name {
+  font-family: 'Sora', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--off-white);
+  margin-bottom: 3px;
+  letter-spacing: -0.01em;
+}
+.team-role { font-size: 10px; font-weight: 400; color: var(--grey-3); }
+.team-handle { font-family: 'Sora', sans-serif; font-size: 9px; color: var(--grey-4); margin-top: 2px; }
+
+/* ====== STACK ====== */
+.stack-bg {
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.stack-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: border-color 0.2s, transform 0.2s;
+  min-width: 0;
+}
+.stack-item:hover { border-color: var(--border-2); transform: translateX(2px); }
+.stack-icon {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: var(--bg-3);
+  border: 1px solid var(--border-2);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stack-icon svg {
+  width: 14px; height: 14px;
+  stroke: var(--grey-1);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.stack-text { min-width: 0; overflow: hidden; }
+.stack-name {
+  font-family: 'Sora', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--off-white);
+  margin-bottom: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stack-cat { font-size: 10px; font-weight: 400; color: var(--grey-3); }
+
+/* ====== TIMELINE ====== */
+.timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.tl-line {
+  position: absolute;
+  top: 27px;
+  left: calc(12.5% + 13px);
+  right: calc(12.5% + 13px);
+  height: 1px;
+  z-index: 0;
+  overflow: hidden;
+}
+.tl-line-track { position: absolute; inset: 0; background: var(--border-2); }
+.tl-line-fill {
+  position: absolute; top:0; left:0; bottom:0;
+  width: 0;
+  background: linear-gradient(90deg, var(--white), var(--grey-2));
+  transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+}
+.timeline-step {
+  text-align: center;
+  padding: 0 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+.tl-dot {
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  border: 1px solid var(--border-2);
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-family: 'Sora', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--grey-3);
+  transition: all 0.3s;
+}
+.timeline-step.active .tl-dot {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--bg);
+  box-shadow: 0 0 24px rgba(255,255,255,0.18);
+}
+.tl-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--grey-2);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.timeline-step.active .tl-label { color: var(--white); }
+.tl-date {
+  font-family: 'Sora', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--grey-3);
+  margin-bottom: 6px;
+}
+.timeline-step.active .tl-date { color: var(--grey-1); }
+.tl-desc { font-size: 11px; font-weight: 400; color: var(--grey-3); line-height: 1.55; }
+
+/* ====== GITHUB STRIP ====== */
+.github-strip {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem 90px;
+}
+.github-card {
+  background: var(--card-2);
+  border: 1px solid var(--border-2);
+  border-radius: 20px;
+  padding: 2.25rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+.github-card:hover { border-color: var(--grey-4); }
+.github-card-glow {
+  position: absolute; top:-50%; right:-10%;
+  width: 340px; height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.github-text h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.03em;
+  margin-bottom: 5px;
+}
+.github-text p { font-size: 13px; color: var(--grey-2); font-weight: 400; }
+
+/* ====== FOOTER ====== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+.footer-logo {
+  font-family: 'Sora', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--grey-3);
+}
+.footer-copy { font-family: 'Sora', sans-serif; font-size: 11px; color: var(--grey-3); }
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-links a {
+  font-family: 'Sora', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--grey-3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--grey-1); }
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 1024px) {
+  .team-grid { grid-template-columns: repeat(3, 1fr); }
+  .stack-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-top: 100px;
+  }
+  .hero-visual { max-width: 460px; width: 100%; margin: 0 auto; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .timeline { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .tl-line { display: none; }
+  .github-card { flex-direction: column; text-align: center; }
+  .nav-center { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-badge { display: none; }
+}
+
+@media (max-width: 600px) {
+  nav { padding: 0 1.25rem; }
+  .section-wrap { padding: 60px 1.25rem; }
+  .hero-inner { padding: 90px 1.25rem 60px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .stack-grid { grid-template-columns: 1fr; }
+  .timeline { grid-template-columns: 1fr; }
+  .about-metrics { grid-template-columns: 1fr 1fr; }
+  footer { flex-direction: column; align-items: flex-start; gap: 0.875rem; }
+  .footer-links { justify-content: flex-start; }
+  .github-strip { padding: 0 1.25rem 60px; }
+  .github-card { padding: 1.75rem 1.5rem; }
+  .hero-desc { max-width: 100%; }
+  .section-sub { max-width: 100%; }
+  .scroll-hint { display: none; }
+}
+
+@media (max-width: 380px) {
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .about-metrics { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+  .reveal { opacity:1 !important; transform:none !important; }
+}
 </style>
 </head>
 <body>
 
-<!-- Background mesh -->
-<div class="bg-mesh" aria-hidden="true">
-  <div class="mesh-blob mesh-blob-1"></div>
-  <div class="mesh-blob mesh-blob-2"></div>
-  <div class="mesh-blob mesh-blob-3"></div>
-</div>
-
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">FYP / 2025–26</a>
-  <ul class="nav-links">
+  <a href="#" class="nav-logo"><span class="logo-dot"></span>RAYBYTE</a>
+  <ul class="nav-center">
     <li><a href="#overview">Overview</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#team">Team</a></li>
@@ -705,70 +976,115 @@
     <li><a href="#timeline">Timeline</a></li>
   </ul>
   <span class="nav-badge">BCA · Final Year</span>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#overview" class="mob-link">Overview</a>
+  <a href="#features" class="mob-link">Features</a>
+  <a href="#team" class="mob-link">Team</a>
+  <a href="#stack" class="mob-link">Stack</a>
+  <a href="#timeline" class="mob-link">Timeline</a>
+</div>
 
 <!-- HERO -->
 <div class="hero" id="overview">
-  <div>
-    <p class="hero-eyebrow">Final Year Project · 2025–26</p>
-    <h1 class="hero-title">
-      Building intelligence<br>
-      <span class="line-muted">from the ground up.</span>
-    </h1>
-    <p class="hero-desc">
-      An AI/ML research project developed by a team of six — exploring machine learning models, intelligent systems, and applied artificial intelligence for real-world problems.
-    </p>
-    <div class="hero-cta-group">
-      <a href="#features" class="btn-primary">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        View Project
-      </a>
-      <a href="#team" class="btn-ghost">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Meet the Team
-      </a>
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Final Year Project · 2025–26</p>
+      <h1 class="hero-title">
+        Performance<br>
+        Prediction<br>
+        <span class="outline">through ML.</span>
+      </h1>
+      <p class="hero-desc">
+        An end-to-end machine learning system identifying which academic factors drive student outcomes — built on real data, validated classifiers, and full interpretability.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#features" class="btn-primary">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>
+          Explore Project
+        </a>
+        <a href="https://github.com/heysanzu/RAYBYTE" target="_blank" rel="noopener" class="btn-ghost">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual" id="hero-visual">
+      <div class="card-3d-wrap" id="card-3d">
+        <div class="glass-card">
+          <div class="card-shimmer"></div>
+          <div class="card-header">
+            <span class="card-label">RAYBYTE · ML MODEL</span>
+            <span class="status-pill"><span class="status-dot"></span>In Progress</span>
+          </div>
+          <div class="model-name">Perf. Predict</div>
+          <div class="model-sub">Classification · Feature Importance · Analytics</div>
+          <div class="stat-row">
+            <div class="stat-item"><span class="stat-val">6</span><span class="stat-key">Members</span></div>
+            <div class="stat-item"><span class="stat-val">1</span><span class="stat-key">Year</span></div>
+            <div class="stat-item"><span class="stat-val">ML</span><span class="stat-key">Domain</span></div>
+          </div>
+          <div class="progress-section">
+            <div class="progress-label"><span>Data Collection</span><span>85%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="85"></div></div>
+            <div class="progress-label"><span>Model Training</span><span>60%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="60"></div></div>
+            <div class="progress-label"><span>Evaluation</span><span>30%</span></div>
+            <div class="progress-bar"><div class="progress-fill" data-width="30"></div></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="hero-visual">
-    <div class="glass-card">
-      <div class="card-noise"></div>
-      <div class="card-header">
-        <span class="card-label">PROJECT · ML MODEL</span>
-        <span class="status-pill">
-          <span class="status-dot"></span>
-          In Progress
-        </span>
+  <div class="scroll-hint">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    Scroll
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<div class="section-wrap" id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p class="section-eyebrow">The research</p>
+      <h2 class="section-title" style="margin-bottom:1.1rem">What are we solving?</h2>
+      <p>Academic performance is shaped by more than study hours. <strong>Nationality, engagement, attendance, hands raised</strong> — dozens of variables interplay in ways raw grades don't reveal.</p>
+      <p>RAYBYTE builds a classifier pipeline over a real-world student CSV dataset, trains multiple ML models, then surfaces the most predictive features through <strong>confusion matrices, heatmaps, and importance plots</strong>.</p>
+      <p>The result: a reproducible ML benchmark any educator or researcher can extend.</p>
+      <div class="about-tags">
+        <span class="tag">Classification</span>
+        <span class="tag">Feature Engineering</span>
+        <span class="tag">Cross-validation</span>
+        <span class="tag">Explainability</span>
+        <span class="tag">Visual Analytics</span>
+        <span class="tag">CSV Pipeline</span>
       </div>
-      <div class="model-name">AI System</div>
-      <div class="model-sub">Machine Learning · Deep Learning · NLP</div>
-      <div class="stat-row">
-        <div class="stat-item">
-          <span class="stat-val">6</span>
-          <span class="stat-key">Members</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-val">1</span>
-          <span class="stat-key">Year</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-val">AI/ML</span>
-          <span class="stat-key">Domain</span>
-        </div>
+    </div>
+    <div class="about-metrics reveal rd2">
+      <div class="metric-card">
+        <div class="metric-val">5<sup>+</sup></div>
+        <div class="metric-label">Classifiers benchmarked on identical splits</div>
       </div>
-      <div class="progress-section">
-        <div class="progress-label">
-          <span>Data Collection</span><span>85%</span>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div>
-        <div class="progress-label">
-          <span>Model Training</span><span>60%</span>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
-        <div class="progress-label">
-          <span>Evaluation</span><span>30%</span>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div>
+      <div class="metric-card">
+        <div class="metric-val">12<sup>+</sup></div>
+        <div class="metric-label">Input features — attendance, engagement, demographics</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">3</div>
+        <div class="metric-label">Prediction classes — Low, Medium, High</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">100<sup>%</sup></div>
+        <div class="metric-label">Open-source, free-tier infrastructure</div>
       </div>
     </div>
   </div>
@@ -777,227 +1093,189 @@
 <hr class="divider">
 
 <!-- FEATURES -->
-<section id="features">
-  <p class="section-eyebrow">What we're building</p>
-  <h2 class="section-title">Core components</h2>
-  <p class="section-sub">A full-stack AI/ML project covering data engineering, model development, and intelligent inference pipelines.</p>
-
+<div class="section-wrap" id="features">
+  <p class="section-eyebrow reveal">What we're building</p>
+  <h2 class="section-title reveal rd1">Core components</h2>
+  <p class="section-sub reveal rd2">Full-stack ML pipeline — raw CSV to interpretable predictions — covering every layer of the research stack.</p>
   <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      </div>
+    <div class="feature-card reveal rd1">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
       <div class="feature-title">Data Pipeline</div>
-      <div class="feature-desc">Automated data collection, cleaning, and preprocessing pipelines for structured and unstructured datasets.</div>
+      <div class="feature-desc">Automated ingestion of the student CSV with cleaning, null handling, label encoding, and train/test splitting.</div>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      </div>
-      <div class="feature-title">Model Architecture</div>
-      <div class="feature-desc">Custom neural network design with optimized layers, activation functions, and regularization strategies.</div>
+    <div class="feature-card reveal rd2">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <div class="feature-title">Multi-Model Architecture</div>
+      <div class="feature-desc">Decision Tree, Random Forest, KNN, SVM and more — trained and compared on identical splits for fair benchmarking.</div>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-      </div>
+    <div class="feature-card reveal rd3">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
       <div class="feature-title">Training System</div>
-      <div class="feature-desc">Distributed training loops with learning rate scheduling, gradient clipping, and checkpoint management.</div>
+      <div class="feature-desc">Colab-based training loops with hyperparameter tuning, cross-validation, and checkpoint exports for reproducibility.</div>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
-      <div class="feature-title">Evaluation Metrics</div>
-      <div class="feature-desc">Comprehensive benchmarking with precision, recall, F1, ROC-AUC, and domain-specific performance metrics.</div>
+    <div class="feature-card reveal rd2">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="feature-title">Evaluation Suite</div>
+      <div class="feature-desc">Precision, recall, F1-score, ROC-AUC, and confusion matrices — metrics presented per-class and macro-averaged.</div>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-      </div>
-      <div class="feature-title">Inference API</div>
-      <div class="feature-desc">REST API layer for real-time and batch model inference with response caching and rate limiting.</div>
+    <div class="feature-card reveal rd3">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+      <div class="feature-title">Visual Analytics</div>
+      <div class="feature-desc">Heatmaps, correlation matrices, feature-importance plots, and learning curves — making findings legible beyond the team.</div>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      </div>
-      <div class="feature-title">Analytics Dashboard</div>
-      <div class="feature-desc">Live monitoring of training curves, model drift, and prediction confidence with interactive visualizations.</div>
+    <div class="feature-card reveal rd4">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+      <div class="feature-title">Inference Interface</div>
+      <div class="feature-desc">A lightweight web interface for submitting student feature vectors and getting real-time grade-band predictions.</div>
     </div>
   </div>
-</section>
+</div>
 
 <hr class="divider">
 
 <!-- TEAM -->
-<section id="team">
-  <p class="section-eyebrow">The people</p>
-  <h2 class="section-title">Our team</h2>
-  <p class="section-sub">Six members. One shared goal. Built end-to-end by students who care about what they're making.</p>
-
+<div class="section-wrap" id="team">
+  <p class="section-eyebrow reveal">The people</p>
+  <h2 class="section-title reveal rd1">Our team</h2>
+  <p class="section-sub reveal rd2">Six members, one shared vision — built end-to-end by students who take ownership of what they ship.</p>
   <div class="team-grid">
-    <!-- Leader -->
-    <div class="team-card leader">
+    <!-- Leader with real photo -->
+    <div class="team-card leader reveal rd1">
       <div class="leader-badge">Leader</div>
-      <div class="avatar avatar-leader">SH</div>
+      <div class="avatar">
+        <img src="https://avatars.githubusercontent.com/u/181187140?v=4" alt="Shahnewaz" loading="lazy" onerror="this.parentNode.className='avatar avatar-default';this.parentNode.innerHTML='SH'">
+      </div>
       <div class="team-name">Shahnewaz</div>
-      <div class="team-role-leader">Project Lead · AI</div>
+      <div class="team-role">Project Lead · AI</div>
       <div class="team-handle">@heysanzu</div>
     </div>
-
-    <!-- Members -->
-    <div class="team-card">
+    <div class="team-card reveal rd2">
       <div class="avatar avatar-default">AK</div>
       <div class="team-name">Akash</div>
       <div class="team-role">ML Engineer</div>
     </div>
-
-    <div class="team-card">
+    <div class="team-card reveal rd3">
       <div class="avatar avatar-default">AV</div>
       <div class="team-name">Abhishek</div>
       <div class="team-role">Backend Dev</div>
     </div>
-
-    <div class="team-card">
+    <div class="team-card reveal rd2">
       <div class="avatar avatar-default">KR</div>
       <div class="team-name">Kriti</div>
       <div class="team-role">Data Engineer</div>
     </div>
-
-    <div class="team-card">
+    <div class="team-card reveal rd3">
       <div class="avatar avatar-default">NI</div>
       <div class="team-name">Nisha</div>
       <div class="team-role">Research Analyst</div>
     </div>
-
-    <div class="team-card">
+    <div class="team-card reveal rd4">
       <div class="avatar avatar-default">SA</div>
-      <div class="team-name">Sandeep</div>
+      <div class="team-name">Sandip</div>
       <div class="team-role">Frontend Dev</div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- STACK SECTION -->
-<div class="stack-section">
-  <section id="stack">
-    <p class="section-eyebrow">Technical stack</p>
-    <h2 class="section-title" style="margin-bottom:0.75rem">Tools &amp; technologies</h2>
-    <p class="section-sub">Built on proven open-source tools and frameworks used at scale in production ML systems.</p>
-
+<!-- STACK -->
+<div class="stack-bg">
+  <div class="section-wrap" id="stack" style="padding-top:65px;padding-bottom:65px;">
+    <p class="section-eyebrow reveal">Technical stack</p>
+    <h2 class="section-title reveal rd1">Tools &amp; technologies</h2>
+    <p class="section-sub reveal rd2">Proven open-source tools — all running on free-tier infrastructure.</p>
     <div class="stack-grid">
-      <div class="stack-item">
-        <div class="stack-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-        </div>
-        <div>
-          <div class="stack-name">Python</div>
-          <div class="stack-cat">Core Language</div>
-        </div>
+      <div class="stack-item reveal rd1">
+        <div class="stack-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <div class="stack-text"><div class="stack-name">Python</div><div class="stack-cat">Core Language</div></div>
       </div>
-      <div class="stack-item">
-        <div class="stack-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-        </div>
-        <div>
-          <div class="stack-name">PyTorch</div>
-          <div class="stack-cat">Deep Learning</div>
-        </div>
+      <div class="stack-item reveal rd2">
+        <div class="stack-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>
+        <div class="stack-text"><div class="stack-name">PyTorch</div><div class="stack-cat">Deep Learning</div></div>
       </div>
-      <div class="stack-item">
-        <div class="stack-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        </div>
-        <div>
-          <div class="stack-name">scikit-learn</div>
-          <div class="stack-cat">ML Library</div>
-        </div>
+      <div class="stack-item reveal rd3">
+        <div class="stack-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="stack-text"><div class="stack-name">scikit-learn</div><div class="stack-cat">ML Library</div></div>
       </div>
-      <div class="stack-item">
-        <div class="stack-icon">
-          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        </div>
-        <div>
-          <div class="stack-name">Pandas · NumPy</div>
-          <div class="stack-cat">Data Processing</div>
-        </div>
+      <div class="stack-item reveal rd4">
+        <div class="stack-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div class="stack-text"><div class="stack-name">Pandas · NumPy</div><div class="stack-cat">Data Processing</div></div>
       </div>
-      <div class="stack-item">
-        <div class="stack-icon">
-          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-        </div>
-        <div>
-          <div class="stack-name">FastAPI</div>
-          <div class="stack-cat">API Backend</div>
-        </div>
+      <div class="stack-item reveal rd2">
+        <div class="stack-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+        <div class="stack-text"><div class="stack-name">FastAPI</div><div class="stack-cat">API Backend</div></div>
       </div>
-      <div class="stack-item">
-        <div class="stack-icon">
-          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </div>
-        <div>
-          <div class="stack-name">Google Colab</div>
-          <div class="stack-cat">Training Environment</div>
-        </div>
+      <div class="stack-item reveal rd3">
+        <div class="stack-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="stack-text"><div class="stack-name">Google Colab</div><div class="stack-cat">Training Env</div></div>
       </div>
-      <div class="stack-item">
-        <div class="stack-icon">
-          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <div>
-          <div class="stack-name">Matplotlib · Seaborn</div>
-          <div class="stack-cat">Visualization</div>
-        </div>
+      <div class="stack-item reveal rd4">
+        <div class="stack-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="stack-text"><div class="stack-name">Matplotlib · Seaborn</div><div class="stack-cat">Visualization</div></div>
       </div>
-      <div class="stack-item">
-        <div class="stack-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
-        </div>
-        <div>
-          <div class="stack-name">GitHub</div>
-          <div class="stack-cat">Version Control</div>
-        </div>
+      <div class="stack-item reveal rd5">
+        <div class="stack-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg></div>
+        <div class="stack-text"><div class="stack-name">GitHub</div><div class="stack-cat">Version Control</div></div>
       </div>
     </div>
-  </section>
+  </div>
 </div>
 
 <!-- TIMELINE -->
-<section id="timeline">
-  <p class="section-eyebrow">Project roadmap</p>
-  <h2 class="section-title">Milestones</h2>
-  <p class="section-sub">A structured four-phase approach from research to final submission.</p>
-
-  <div class="timeline">
+<div class="section-wrap" id="timeline">
+  <p class="section-eyebrow reveal">Project roadmap</p>
+  <h2 class="section-title reveal rd1">Milestones</h2>
+  <p class="section-sub reveal rd2">Four structured phases from research question to final submission.</p>
+  <div class="timeline reveal rd2" id="timeline-block">
+    <div class="tl-line">
+      <div class="tl-line-track"></div>
+      <div class="tl-line-fill" id="tl-fill"></div>
+    </div>
     <div class="timeline-step active">
       <div class="tl-dot">01</div>
       <div class="tl-label">Research</div>
       <div class="tl-date">Jul – Aug 2025</div>
+      <div class="tl-desc">Literature review, dataset selection, problem framing, and baseline experiments.</div>
     </div>
     <div class="timeline-step active">
       <div class="tl-dot">02</div>
       <div class="tl-label">Data &amp; Model</div>
       <div class="tl-date">Sep – Nov 2025</div>
+      <div class="tl-desc">Feature engineering, preprocessing pipeline, multi-classifier training and initial benchmarks.</div>
     </div>
     <div class="timeline-step active">
       <div class="tl-dot">03</div>
       <div class="tl-label">Development</div>
       <div class="tl-date">Dec 2025 – Feb 2026</div>
+      <div class="tl-desc">Visual analytics, inference interface, evaluation suite, and documentation.</div>
     </div>
     <div class="timeline-step">
       <div class="tl-dot">04</div>
       <div class="tl-label">Submission</div>
       <div class="tl-date">Aug – Sep 2026</div>
+      <div class="tl-desc">Final viva prep, project report, and formal college submission.</div>
     </div>
   </div>
-</section>
+</div>
+
+<!-- GITHUB STRIP -->
+<div class="github-strip reveal">
+  <div class="github-card">
+    <div class="github-card-glow"></div>
+    <div class="github-text">
+      <h3>The full codebase is open.</h3>
+      <p>Browse the dataset, classifier code, notebooks, and visual outputs on GitHub.</p>
+    </div>
+    <a href="https://github.com/heysanzu/RAYBYTE" target="_blank" rel="noopener" class="btn-primary" style="flex-shrink:0;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      heysanzu/RAYBYTE
+    </a>
+  </div>
+</div>
 
 <hr class="divider">
 
-<!-- FOOTER -->
 <footer>
-  <span class="footer-logo">MUXBITE × BCA · Final Year Project 2025–26</span>
+  <span class="footer-logo">RAYBYTE · BCA Final Year Project 2025–26</span>
   <div class="footer-links">
     <a href="#overview">Overview</a>
     <a href="#team">Team</a>
@@ -1006,5 +1284,152 @@
   <span class="footer-copy">Shahnewaz @heysanzu</span>
 </footer>
 
+<script>
+/* === CANVAS NEURAL NET (greyscale) === */
+(function(){
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [], raf;
+
+  function resize(){
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function makeNodes(){
+    nodes = [];
+    const n = Math.min(50, Math.floor(W * H / 14000));
+    for(let i=0;i<n;i++){
+      nodes.push({
+        x: Math.random()*W, y: Math.random()*H,
+        vx:(Math.random()-0.5)*0.22, vy:(Math.random()-0.5)*0.22,
+        r: Math.random()*1.5+0.8
+      });
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const maxD = 130;
+    for(let i=0;i<nodes.length;i++){
+      const n=nodes[i];
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>W) n.vx*=-1;
+      if(n.y<0||n.y>H) n.vy*=-1;
+      for(let j=i+1;j<nodes.length;j++){
+        const m=nodes[j];
+        const dx=m.x-n.x, dy=m.y-n.y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<maxD){
+          const a=(1-d/maxD)*0.14;
+          ctx.beginPath();
+          ctx.strokeStyle=`rgba(255,255,255,${a})`;
+          ctx.lineWidth=0.5;
+          ctx.moveTo(n.x,n.y);
+          ctx.lineTo(m.x,m.y);
+          ctx.stroke();
+        }
+      }
+      ctx.beginPath();
+      ctx.fillStyle=`rgba(255,255,255,0.32)`;
+      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fill();
+    }
+    raf=requestAnimationFrame(draw);
+  }
+
+  function init(){
+    resize(); makeNodes();
+    if(raf) cancelAnimationFrame(raf);
+    draw();
+  }
+
+  let resizeTimer;
+  window.addEventListener('resize',()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer=setTimeout(init,150);
+  });
+  init();
+})();
+
+/* === 3D CARD TILT === */
+(function(){
+  const wrap=document.getElementById('hero-visual');
+  const card=document.getElementById('card-3d');
+  if(!wrap||!card) return;
+
+  // only tilt on non-touch
+  if(window.matchMedia('(hover:hover)').matches){
+    wrap.addEventListener('mousemove',e=>{
+      const r=wrap.getBoundingClientRect();
+      const rx=((e.clientY-(r.top+r.height/2))/(r.height/2))*-7;
+      const ry=((e.clientX-(r.left+r.width/2))/(r.width/2))*9;
+      card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
+    wrap.addEventListener('mouseleave',()=>{
+      card.style.transition='transform 0.6s cubic-bezier(0.4,0,0.2,1)';
+      card.style.transform='perspective(900px) rotateX(0deg) rotateY(0deg)';
+      setTimeout(()=>{card.style.transition='';},620);
+    });
+  }
+})();
+
+/* === MOBILE NAV === */
+(function(){
+  const toggle=document.getElementById('nav-toggle');
+  const menu=document.getElementById('mobile-menu');
+  if(!toggle||!menu) return;
+
+  toggle.addEventListener('click',()=>{
+    const open=menu.classList.toggle('open');
+    toggle.classList.toggle('open',open);
+    toggle.setAttribute('aria-expanded',open);
+  });
+
+  // close on link click
+  menu.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click',()=>{
+      menu.classList.remove('open');
+      toggle.classList.remove('open');
+    });
+  });
+})();
+
+/* === SCROLL REVEAL === */
+(function(){
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+
+/* === PROGRESS BARS === */
+(function(){
+  const fills=document.querySelectorAll('.progress-fill[data-width]');
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        setTimeout(()=>{ e.target.style.width=e.target.dataset.width+'%'; },100);
+        e.target.style.transition='width 1.3s cubic-bezier(0.4,0,0.2,1)';
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.5});
+  fills.forEach(f=>obs.observe(f));
+})();
+
+/* === TIMELINE LINE === */
+(function(){
+  const fill=document.getElementById('tl-fill');
+  const block=document.getElementById('timeline-block');
+  if(!fill||!block) return;
+  const obs=new IntersectionObserver((entries)=>{
+    if(entries[0].isIntersecting){ fill.style.width='66.6%'; obs.disconnect(); }
+  },{threshold:0.4});
+  obs.observe(block);
+})();
+</script>
 </body>
 </html>
