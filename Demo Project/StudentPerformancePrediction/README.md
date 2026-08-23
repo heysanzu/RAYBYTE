@@ -1,13 +1,69 @@
-# StudentPerformancePrediction-ML
-This is a simple machine learning project using classifiers for predicting factors which affect student grades, using data from CSV file
+# Student Performance Prediction ML
+
+A machine learning project using classifiers to analyze and predict key factors that affect student grades based on data stored in a CSV file.
+
+## Overview
+
+This project processes a dataset containing student records across various nationalities and grade levels. It evaluates determining factors such as the number of hands raised in class, attendance rate, and study hours. Multiple machine learning models and classifiers are trained to identify which factors most accurately predict academic outcomes. Visualizations—including heatmaps, graphs, and confusion matrices—are included to demonstrate data engineering and model evaluation results.
+
+---
+
+## Setup and Installation
+
+### Prerequisites
+
+* Python 3.8 or higher
+* `pip` package manager
+
+### 1. Clone the Repository
+
+```bash
+git clone [https://github.com/heysanzu/RAYBYTE.git](https://github.com/heysanzu/RAYBYTE.git)
+cd RAYBYTE/"Demo Project"/StudentPerformancePrediction
+
+```
+
+### 2. Create a Virtual Environment
+
+* **macOS / Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+
+```
 
 
-In this Project, a dataset which has students from nationalities, different grade levels and also soe determining factors like,
-number of hands raised, nuber attendances, number of hours studied etc. is used, which is a CSV File.
+* **Windows:**
+```cmd
+python -m venv venv
+venv\Scripts\activate
+
+```
 
 
-And a few different classifiers and ML models have been used to get the most accurate predictions of which factors,
-affect the marks of students.
 
-A few visual aids like graphs and confusion matrix have been created, to show the results.
-Also additional heatmaps and other charts have been added to further demonstrate how data modelling and engineering works.
+### 3. Install Dependencies
+
+```bash
+pip install pandas numpy scikit-learn matplotlib seaborn
+
+```
+
+---
+
+## Project Structure
+
+* **data/**: Contains the dataset CSV file (e.g., student attendance, engagement metrics, and grades).
+* **main.py / notebook.ipynb**: Script containing data preprocessing, EDA visualizations, model training, and performance evaluations.
+* **README.md**: Documentation and project setup instructions.
+
+---
+
+## Usage
+
+1. Ensure your dataset CSV file is placed inside the project directory.
+2. Execute the main Python script:
+```bash
+python main.py
+
+```
