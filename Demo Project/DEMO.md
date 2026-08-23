@@ -1,1 +1,0 @@
-Demo or Warmup project
