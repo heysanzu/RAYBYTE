@@ -1,4 +1,4 @@
-# Student Grade Prediction (AI & ML)
+# Grade Prediction (AI & ML)
 
 This is a machine learning project that uses classification algorithms to predict the factors most heavily affecting student grades, utilizing data from a CSV file.
 
