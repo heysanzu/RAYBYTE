@@ -10,8 +10,6 @@ We implemented and compared various classifiers and ML models to achieve the mos
 > This is a preview version (Demo Project) used to test core features.
 > The final project is coming soon with full updates!
 
-To illustrate our findings, we generated visual aids including graphs and confusion matrices. Additional heatmaps and statistical charts are also included to further demonstrate the data modeling and feature engineering processes.
-
 ## Team Information (2025–26)
 
 - **Leader:** <img src="https://github.com/heysanzu.png" width="22" height="22" style="border-radius: 50%; vertical-align: middle;"> Shahnewaz [`@heysanzu`](https://github.com/heysanzu)
