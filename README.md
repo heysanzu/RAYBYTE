@@ -1,6 +1,9 @@
 # What are we solving?
 RAYBYTE builds a classifier pipeline over a real-world student dataset, trains multiple ML models, then surfaces the most predictive features through confusion matrices, heatmaps, and importance plots.
 
+[![Live](https://img.shields.io/badge/▶_Live-grey?style=for-the-badge)](https://heysanzu.github.io/rayByte)
+![Thumbnail](src/raybyteUI.png)
+
 ---
 
 ## Grade Prediction (AI & ML)
