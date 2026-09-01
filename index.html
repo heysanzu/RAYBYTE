@@ -1,902 +1,1233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAYBYTE-Team</title>
-<link rel="icon" type="image/png" href="sanzu.png">
-<link rel="manifest" href="manifest.json">
-<style>
-@font-face {
-  font-family: 'ComicCustom';
-  src: url('https://raw.githubusercontent.com/heysanzu/sanzu/main/fonts/comic_sans_regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAYBYTE | AI & ML Project</title>
+  <meta name="description" content="RAYBYTE is a BCA final year AI & ML project team focused on student performance prediction using machine learning and data analysis." />
+  <link rel="icon" type="image/png" href="sanzu.png" />
+  <link rel ="manifest" href="manifest.json" />
+  <style>
+    @font-face {
+      font-family: "ComicCustom";
+      src: url("https://raw.githubusercontent.com/heysanzu/sanzu/main/fonts/comic_sans_regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f6f5f3;
+      --paper: #ffffff;
+      --ink: #111111;
+      --muted: #5a5a5a;
+      --line: #e8e3df;
+      --soft: #f1efec;
+      --shadow: rgba(17, 17, 17, 0.08);
+      --chip: #ededeb;
+      --success: #1a8f5a;
+    }
 
-:root {
-  --black:   #000000;
-  --white:   #ffffff;
-  --grey-1:  #f2f2f2;
-  --grey-2:  #e0e0e0;
-  --grey-3:  #999999;
-  --grey-4:  #555555;
-  --grey-5:  #222222;
-}
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "ComicCustom", "Comic Sans MS", cursive;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-html { scroll-behavior: smooth; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
 
-body {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  background: var(--white);
-  color: var(--black);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
+    ::selection {
+      background: var(--ink);
+      color: var(--paper);
+    }
 
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: var(--white); }
-::-webkit-scrollbar-thumb { background: var(--grey-2); border-radius: 3px; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-thumb {
+      background: #d0c9c3;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-track { background: #f7f5f3; }
 
-/* ====== NAV ====== */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2.5rem;
-  height: 58px;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--grey-2);
-}
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
 
-.nav-logo {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--black);
-  text-decoration: none;
-}
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(246, 245, 243, 0.76);
+      border-bottom: 1px solid var(--line);
+    }
 
-.nav-links {
-  display: flex;
-  gap: 2.25rem;
-  list-style: none;
-}
-.nav-links a {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 13px;
-  color: var(--grey-4);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.nav-links a:hover { color: var(--black); }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      gap: 18px;
+      position: relative;
+    }
 
-.nav-meta {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 11px;
-  color: var(--grey-3);
-  border: 1px solid var(--grey-2);
-  border-radius: 100px;
-  padding: 4px 14px;
-}
+    .brand {
+      font-size: 1.05rem;
+      letter-spacing: 0.24em;
+      font-weight: 700;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
 
-/* hamburger */
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-}
-.nav-toggle span {
-  display: block;
-  width: 22px; height: 2px;
-  background: var(--black);
-  border-radius: 2px;
-  transition: transform 0.3s, opacity 0.3s;
-}
-.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-toggle.open span:nth-child(2) { opacity: 0; }
-.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-shell {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.4rem;
+      background: rgba(255,255,255,0.4);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
 
-.mobile-menu {
-  display: none;
-  position: fixed;
-  top: 58px; left: 0; right: 0;
-  background: var(--white);
-  border-bottom: 1px solid var(--grey-2);
-  z-index: 998;
-  padding: 1.5rem 2.5rem;
-  flex-direction: column;
-  gap: 1.1rem;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 15px;
-  color: var(--black);
-  text-decoration: none;
-  padding: 0.45rem 0;
-  border-bottom: 1px solid var(--grey-1);
-}
-.mobile-menu a:last-child { border-bottom: none; }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
-/* ====== HERO ====== */
-.hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  border-bottom: 1px solid var(--grey-2);
-  padding: 0 2.5rem 3.5rem;
-  position: relative;
-}
+    .nav-btn {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border-radius: 12px;
+      font: inherit;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      position: relative;
+    }
 
-.hero-content {
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  padding-top: calc(58px + 2.5rem);
-}
+    .nav-btn svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
 
-/* typing animation */
-.typing-wrap {
-  display: inline-block;
-  position: relative;
-}
-.typing-cursor {
-  display: inline-block;
-  width: 3px;
-  background: var(--black);
-  margin-left: 4px;
-  vertical-align: baseline;
-  animation: cursor-blink 0.75s step-end infinite;
-  border-radius: 1px;
-}
-@keyframes cursor-blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
+    .nav-btn:hover {
+      color: var(--ink);
+      background: rgba(17,17,17,0.03);
+    }
 
-.hero-label {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 12px;
-  color: var(--grey-3);
-  letter-spacing: 0.02em;
-  margin-bottom: 1.5rem;
-}
+    .nav-btn.active {
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: 0 10px 24px rgba(17,17,17,0.18);
+    }
 
-.hero-title {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: clamp(3.8rem, 9vw, 8rem);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--black);
-  margin-bottom: 2.5rem;
-}
+    .nav-btn[title]::after {
+      content: attr(title);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 10px);
+      transform: translateX(-50%) translateY(4px);
+      background: rgba(17,17,17,0.9);
+      color: var(--paper);
+      padding: 0.38rem 0.5rem;
+      border-radius: 8px;
+      font-size: 0.56rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
 
-.hero-title .ghost {
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--grey-3);
-}
+    .nav-btn:hover[title]::after,
+    .nav-btn:focus-visible[title]::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
 
-.hero-bottom {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
 
-.hero-desc {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 14px;
-  color: var(--grey-4);
-  line-height: 1.8;
-  max-width: 380px;
-}
+    .github-shortcut {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.4);
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
 
-.hero-stats {
-  display: flex;
-  gap: 2.5rem;
-  flex-shrink: 0;
-}
-.hero-stat-val {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 28px;
-  color: var(--black);
-  line-height: 1;
-  margin-bottom: 3px;
-}
-.hero-stat-key {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 11px;
-  color: var(--grey-3);
-}
+    .github-shortcut:hover {
+      transform: translateY(-1px);
+      background: rgba(17,17,17,0.03);
+      box-shadow: 0 10px 22px rgba(17,17,17,0.07);
+    }
 
-/* ====== MEMBERS SECTION ====== */
-.members-section {
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 5rem 2.5rem;
-}
+    .github-shortcut svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      fill: currentColor;
+    }
 
-.members-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 3rem;
-  gap: 1rem;
-  flex-wrap: wrap;
-  border-bottom: 1px solid var(--grey-2);
-  padding-bottom: 1.25rem;
-}
+    .status-pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.42rem 0.9rem;
+      color: var(--muted);
+      font-size: 0.66rem;
+      background: rgba(255,255,255,0.36);
+      white-space: nowrap;
+    }
 
-.members-header h2 {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--black);
-  letter-spacing: 0.01em;
-}
+    .nav-dock {
+      position: fixed;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      z-index: 80;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.5rem;
+      background: rgba(17,17,17,0.88);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      box-shadow: 0 18px 38px rgba(17,17,17,0.3);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
 
-.members-header span {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 12px;
-  color: var(--grey-3);
-}
+    .nav-dock .nav-btn {
+      color: rgba(255,255,255,0.7);
+      padding: 0.8rem 0.9rem;
+      min-width: 64px;
+      border-radius: 12px;
+    }
 
-/* ====== MEMBER CARDS ====== */
-.member-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
+    .nav-dock .nav-btn.active {
+      background: rgba(255,255,255,0.12);
+      color: var(--paper);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
 
-.member-row {
-  background: var(--white);
-  border: 1px solid var(--grey-2);
-  border-radius: 14px;
-  padding: 1.6rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
-  cursor: default;
-}
-.member-row:hover {
-  border-color: var(--black);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
-}
+    .hero {
+      padding: 3.5rem 0 2.5rem;
+      position: relative;
+    }
 
-.member-card-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 1.1rem;
-}
+    .hero-shell {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 2rem;
+      min-height: 520px;
+    }
 
-.member-index {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 11px;
-  color: var(--grey-3);
-}
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.73rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
 
-.member-tag {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 10px;
-  color: var(--grey-3);
-  border: 1px solid var(--grey-2);
-  border-radius: 100px;
-  padding: 3px 10px;
-  white-space: nowrap;
-}
-.member-tag.lead {
-  color: var(--black);
-  border-color: var(--black);
-}
+    .eyebrow::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--ink);
+      display: inline-block;
+    }
 
-.member-avatar {
-  width: 56px; height: 56px;
-  border-radius: 12px;
-  background: var(--grey-1);
-  border: 1px solid var(--grey-2);
-  overflow: hidden;
-  margin-bottom: 1rem;
-  flex-shrink: 0;
-}
-.member-avatar img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.member-avatar-fallback {
-  width: 100%; height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 18px;
-  color: var(--grey-4);
-}
+    h1 {
+      margin: 0;
+      font-size: clamp(3.5rem, 7vw, 7.5rem);
+      line-height: 0.94;
+      letter-spacing: -0.06em;
+      font-weight: 400;
+    }
 
-.member-identity { min-width: 0; }
+    .ghost {
+      display: inline-block;
+      color: transparent;
+      -webkit-text-stroke: 1.4px rgba(17,17,17,0.42);
+    }
 
-.member-name {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--black);
-  line-height: 1.1;
-  margin-bottom: 3px;
-}
+    .typing-wrap {
+      display: inline-flex;
+      align-items: center;
+      min-height: 1.2em;
+    }
 
-.member-role {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 12px;
-  color: var(--grey-4);
-  margin-bottom: 6px;
-}
+    .typed-text {
+      display: inline-block;
+      min-width: 0.7ch;
+    }
 
-.member-handle {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 11px;
-  color: var(--grey-3);
-}
+    .cursor {
+      display: inline-block;
+      width: 4px;
+      height: 0.9em;
+      background: var(--ink);
+      margin-left: 0.25rem;
+      border-radius: 2px;
+      animation: blink 0.8s step-end infinite;
+    }
 
-/* ====== ABOUT STRIP ====== */
-.about-strip {
-  background: var(--black);
-  color: var(--white);
-  border-top: 1px solid var(--grey-5);
-}
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      50.01%, 100% { opacity: 0; }
+    }
 
-.about-inner {
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 4.5rem 2.5rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: start;
-}
+    .hero-copy {
+      margin-top: 1.4rem;
+      max-width: 560px;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
 
-.about-left h2 {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--white);
-  margin-bottom: 1.25rem;
-}
+    .hero-actions {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
 
-.about-left p {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 14px;
-  color: var(--grey-3);
-  line-height: 1.8;
-  max-width: 380px;
-}
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      min-height: 48px;
+      padding: 0.9rem 1.3rem;
+      border-radius: 14px;
+      border: 1px solid var(--ink);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
 
-.about-right {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--grey-5);
-  border: 1px solid var(--grey-5);
-  border-radius: 12px;
-  overflow: hidden;
-}
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(17,17,17,0.08);
+    }
 
-.about-metric {
-  background: var(--black);
-  padding: 1.5rem 1.25rem;
-}
+    .button.primary {
+      background: var(--ink);
+      color: var(--paper);
+    }
 
-.about-metric-val {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 36px;
-  color: var(--white);
-  line-height: 1;
-  margin-bottom: 6px;
-}
+    .button.secondary {
+      background: rgba(255,255,255,0.5);
+      color: var(--ink);
+    }
 
-.about-metric-val sup {
-  font-size: 18px;
-  color: var(--grey-3);
-}
+    .hero-stats {
+      margin-top: 2.1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
 
-.about-metric-label {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 11px;
-  color: var(--grey-3);
-  line-height: 1.5;
-}
+    .stat {
+      min-width: 120px;
+    }
 
-/* ====== SKILLS SECTION ====== */
-.skills-section {
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 5rem 2.5rem;
-  border-bottom: 1px solid var(--grey-2);
-}
+    .stat-value {
+      font-size: 1.8rem;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
 
-.skills-section h2 {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--black);
-  margin-bottom: 2rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--grey-2);
-}
+    .stat-label {
+      font-size: 0.64rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
 
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  border: 1px solid var(--grey-2);
-  border-radius: 8px;
-  overflow: hidden;
-}
+    .dashboard {
+      position: relative;
+      display: grid;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.75);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: 0 24px 60px rgba(17,17,17,0.08);
+    }
 
-.skill-cell {
-  padding: 1.4rem 1.25rem;
-  border-right: 1px solid var(--grey-2);
-  border-bottom: 1px solid var(--grey-2);
-  transition: background 0.15s;
-}
-.skill-cell:hover { background: var(--grey-1); }
-.skill-cell:nth-child(4n) { border-right: none; }
-.skill-cell:nth-last-child(-n+4) { border-bottom: none; }
+    .dashboard-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0.75rem 0.3rem;
+    }
 
-.skill-name {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 13px;
-  color: var(--black);
-  margin-bottom: 3px;
-}
-.skill-cat {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 10px;
-  color: var(--grey-3);
-}
+    .dots { display: flex; gap: 0.45rem; }
+    .dots span {
+      display: block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d8d2ce;
+    }
+    .dots span:first-child { background: #1a1a1a; }
 
-/* ====== GITHUB BLOCK ====== */
-.github-section {
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 4rem 2.5rem 5rem;
-}
+    .panel {
+      background: linear-gradient(180deg, #fff, #f4f1ef);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 1rem;
+    }
 
-.github-block {
-  border: 1px solid var(--black);
-  border-radius: 12px;
-  padding: 2.5rem 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  transition: background 0.15s;
-}
-.github-block:hover { background: var(--grey-1); }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.8rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-.github-block h3 {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 20px;
-  font-weight: 400;
-  color: var(--black);
-  margin-bottom: 6px;
-}
-.github-block p {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 13px;
-  color: var(--grey-4);
-}
+    .score {
+      font-size: clamp(2.2rem, 3vw, 3rem);
+      line-height: 1;
+      margin-bottom: 0.55rem;
+      letter-spacing: -0.06em;
+    }
 
-.btn-dark {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 22px;
-  background: var(--black);
-  color: var(--white);
-  border-radius: 8px;
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 12px;
-  text-decoration: none;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: opacity 0.15s;
-}
-.btn-dark:hover { opacity: 0.78; }
+    .trend {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--success);
+      font-size: 0.75rem;
+    }
 
-/* ====== FOOTER ====== */
-footer {
-  border-top: 1px solid var(--grey-2);
-  padding: 1.75rem 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  max-width: 100%;
-  flex-wrap: wrap;
-}
+    .bars {
+      height: 110px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 0.45rem;
+      padding-top: 0.8rem;
+    }
 
-.footer-left {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 12px;
-  color: var(--grey-4);
-}
+    .bars span {
+      display: block;
+      width: 100%;
+      border-radius: 999px 999px 0 0;
+      background: linear-gradient(180deg, #181818, #5b5b5b);
+      opacity: 0.92;
+    }
 
-.footer-right {
-  font-family: 'ComicCustom', 'Comic Sans MS', cursive;
-  font-size: 12px;
-  color: var(--grey-3);
-}
+    .bars span:nth-child(1) { height: 38%; }
+    .bars span:nth-child(2) { height: 62%; }
+    .bars span:nth-child(3) { height: 48%; }
+    .bars span:nth-child(4) { height: 78%; }
+    .bars span:nth-child(5) { height: 88%; }
+    .bars span:nth-child(6) { height: 92%; }
 
-/* ====== REVEAL ====== */
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
 
-/* ====== RESPONSIVE ====== */
-@media (max-width: 860px) {
-  .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-  .skills-grid { grid-template-columns: repeat(2, 1fr); }
-  .skill-cell:nth-child(4n) { border-right: 1px solid var(--grey-2); }
-  .skill-cell:nth-child(2n) { border-right: none; }
-  .skill-cell:nth-last-child(-n+4) { border-bottom: 1px solid var(--grey-2); }
-  .skill-cell:nth-last-child(-n+2) { border-bottom: none; }
-  .member-list { grid-template-columns: repeat(2, 1fr); }
-  .nav-links { display: none; }
-  .nav-toggle { display: flex; }
-  .nav-meta { display: none; }
-  .github-block { flex-direction: column; text-align: left; align-items: flex-start; }
-}
+    .mini-card {
+      padding: 0.8rem 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.55);
+    }
 
-@media (max-width: 600px) {
-  nav { padding: 0 1.25rem; }
-  .hero { padding: 0 1.25rem 2.5rem; }
-  .hero-content { padding-top: calc(58px + 1.5rem); }
-  .members-section { padding: 3rem 1.25rem; }
-  .about-inner { padding: 3rem 1.25rem; }
-  .skills-section { padding: 3rem 1.25rem; }
-  .github-section { padding: 2.5rem 1.25rem 3.5rem; }
-  footer { padding: 1.5rem 1.25rem; }
-  .member-list { grid-template-columns: 1fr 1fr; }
-  .hero-stats { gap: 1.5rem; }
-  .about-right { grid-template-columns: 1fr; }
-  .skills-grid { grid-template-columns: 1fr 1fr; }
-}
+    .mini-label {
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
-  .reveal { opacity:1 !important; transform:none !important; }
-}
-</style>
+    .mini-value {
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .section {
+      padding: 2rem 0 1.5rem;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.8rem;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-tag {
+      color: var(--muted);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .metric-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 1.3rem 1rem;
+      box-shadow: 0 10px 24px rgba(17,17,17,0.03);
+    }
+
+    .metric-card .big {
+      font-size: clamp(2rem, 2.5vw, 2.6rem);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      margin-bottom: 0.7rem;
+    }
+
+    .metric-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.7;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 1.2rem;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      transform-style: preserve-3d;
+      box-shadow: 0 20px 38px rgba(17,17,17,0.03);
+      will-change: transform;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px) rotateX(3deg) rotateY(-3deg);
+      border-color: rgba(17,17,17,0.4);
+      box-shadow: 0 26px 48px rgba(17,17,17,0.07);
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--ink);
+      color: var(--paper);
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 0.65rem;
+      font-size: 1.2rem;
+      letter-spacing: -0.04em;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.8rem;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .member-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 1rem;
+      box-shadow: 0 10px 28px rgba(17,17,17,0.03);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .member-card:hover {
+      transform: translateY(-4px) rotateX(4deg) rotateY(-4deg);
+      border-color: rgba(17,17,17,0.35);
+      box-shadow: 0 24px 40px rgba(17,17,17,0.08);
+    }
+
+    .member-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .member-tag {
+      padding: 0.38rem 0.62rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--chip);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .member-tag.lead {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
+    }
+
+    .member-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, #f1efec, #ece4df);
+      margin-bottom: 0.9rem;
+    }
+
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .member-name {
+      font-size: 1.25rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .member-role {
+      font-size: 0.74rem;
+      color: var(--muted);
+      margin-bottom: 0.32rem;
+    }
+
+    .member-handle {
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .stack-item {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.66);
+      border-radius: 18px;
+      padding: 1rem 0.95rem;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .stack-item:hover {
+      transform: translateY(-4px) rotateX(4deg) rotateY(4deg);
+      border-color: rgba(17,17,17,0.38);
+      box-shadow: 0 18px 32px rgba(17,17,17,0.05);
+    }
+
+    .stack-item strong {
+      display: block;
+      margin-bottom: 0.32rem;
+      font-size: 0.96rem;
+      letter-spacing: -0.02em;
+    }
+
+    .stack-item span {
+      color: var(--muted);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .cta {
+      padding: 2rem 0 4rem;
+    }
+
+    .cta-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 1.4rem 1.5rem;
+    }
+
+    .cta h3 {
+      margin: 0 0 0.25rem;
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      letter-spacing: -0.05em;
+      font-weight: 400;
+    }
+
+    .cta p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: 1.3rem 0 2.2rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .hero-shell { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .team-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .metrics-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .stack-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .status-pill { display: none; }
+      .nav-shell { display: none; }
+      .nav-dock { display: flex; }
+      .cta-box { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 620px) {
+      .hero { padding-top: 2.2rem; }
+      .hero-shell { min-height: auto; }
+      .feature-grid,
+      .team-grid,
+      .metrics-grid,
+      .stack-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-stats { gap: 1rem; }
+      .button { width: 100%; }
+      .hero-actions { flex-direction: column; }
+      .cta-box { padding: 1.1rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .nav-dock { width: calc(100% - 22px); }
+      .nav-dock .nav-btn { flex: 1; min-width: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#" class="brand">RAYBYTE</a>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">RAYBYTE</a>
-  <ul class="nav-links">
-    <li><a href="#members">Team</a></li>
-    <li><a href="#project">Project</a></li>
-    <li><a href="#stack">Stack</a></li>
-  </ul>
-  <span class="nav-meta">BCA · Final Year 2025–26 · AI &amp; ML</span>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+      <div class="nav-shell" aria-label="Main navigation">
+        <nav class="nav">
+          <button class="nav-btn active" type="button" data-target="project" aria-label="Project overview" title="Project">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h3.3l1.8 2.2H17.5A2.5 2.5 0 0 1 20 9.7v7.8A2.5 2.5 0 0 1 17.5 20h-11A2.5 2.5 0 0 1 4 17.5z"/><path d="M8 10h8"/><path d="M8 14h6"/></svg>
+          </button>
+          <button class="nav-btn" type="button" data-target="members" aria-label="Team members" title="Team">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M15 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/><path d="M4.5 18a4.5 4.5 0 0 1 9 0"/><path d="M13.5 18a4 4 0 0 1 6.5-3.1"/></svg>
+          </button>
+          <button class="nav-btn" type="button" data-target="stack" aria-label="Technology stack" title="Stack">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3.5 7.5 12 12l8.5-4.5L12 3Z"/><path d="M3.5 11.5 12 16l8.5-4.5"/><path d="M3.5 15.5 12 20l8.5-4.5"/></svg>
+          </button>
+          <button class="nav-btn" type="button" data-target="github" aria-label="Project code" title="Code">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 16 4 4 4-4"/><path d="M12 20V8"/><path d="M7 5.5 12 3l5 2.5"/><path d="M8 9 4.5 12 8 15"/><path d="M16 9l3.5 3L16 15"/></svg>
+          </button>
+        </nav>
+      </div>
 
-<div class="mobile-menu" id="mobile-menu">
-  <a href="#members" class="mob-link">Team</a>
-  <a href="#project" class="mob-link">Project</a>
-  <a href="#stack" class="mob-link">Stack</a>
-</div>
+      <div class="header-actions">
+        <a class="github-shortcut" href="https://github.com/heysanzu/RAYBYTE" target="_blank" rel="noopener" aria-label="Open project on GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.4a9.6 9.6 0 0 0-3.03 18.72c.48.09.65-.2.65-.46v-1.62c-2.64.58-3.2-1.14-3.2-1.14-.43-1.1-1.05-1.4-1.05-1.4-.86-.59.06-.58.06-.58.95.07 1.45 1 1.45 1 .84 1.42 2.2 1.02 2.74.78.08-.6.33-1.02.6-1.25-2.1-.24-4.31-1.05-4.31-4.67 0-1.03.37-1.87 1-2.53-.1-.24-.43-1.23.1-2.54 0 0 .82-.27 2.69 1a9.25 9.25 0 0 1 4.9 0c1.87-1.27 2.69-1 2.69-1 .53 1.31.2 2.3.1 2.54.64.66 1 1.5 1 2.53 0 3.63-2.22 4.43-4.34 4.67.34.3.64.9.64 1.82v2.7c0 .26.17.56.66.46A9.6 9.6 0 0 0 12 2.4Z"/></svg>
+        </a>
+        <div class="status-pill">BCA Final Year · AI & ML</div>
+      </div>
+    </div>
+  </header>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-content">
-    <p class="hero-label">Final Year BCA · Performance Prediction through AI & ML</p>
-    <h1 class="hero-title">
-      <span class="typing-wrap"><span id="typed-text"></span><span class="typing-cursor" id="typed-cursor"></span></span><br>
-      <span class="ghost">Team.</span>
-    </h1>
-    <div class="hero-bottom">
-      <p class="hero-desc">
-        Six students building an end-to-end AI & ML system that identifies which academic factors drive student outcomes.
-      </p>
-      <div class="hero-stats">
-        <div>
-          <div class="hero-stat-val">6</div>
-          <div class="hero-stat-key">members</div>
+  <nav class="nav-dock" aria-label="Mobile app navigation">
+    <button class="nav-btn active" type="button" data-target="project" aria-label="Project overview" title="Project">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h3.3l1.8 2.2H17.5A2.5 2.5 0 0 1 20 9.7v7.8A2.5 2.5 0 0 1 17.5 20h-11A2.5 2.5 0 0 1 4 17.5z"/><path d="M8 10h8"/><path d="M8 14h6"/></svg>
+    </button>
+    <button class="nav-btn" type="button" data-target="members" aria-label="Team members" title="Team">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M15 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/><path d="M4.5 18a4.5 4.5 0 0 1 9 0"/><path d="M13.5 18a4 4 0 0 1 6.5-3.1"/></svg>
+    </button>
+    <button class="nav-btn" type="button" data-target="stack" aria-label="Technology stack" title="Stack">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3.5 7.5 12 12l8.5-4.5L12 3Z"/><path d="M3.5 11.5 12 16l8.5-4.5"/><path d="M3.5 15.5 12 20l8.5-4.5"/></svg>
+    </button>
+    <button class="nav-btn" type="button" data-target="github" aria-label="Project code" title="Code">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 16 4 4 4-4"/><path d="M12 20V8"/><path d="M7 5.5 12 3l5 2.5"/><path d="M8 9 4.5 12 8 15"/><path d="M16 9l3.5 3L16 15"/></svg>
+    </button>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-shell">
+        <div class="reveal">
+          <div class="eyebrow">Final Year BCA Project</div>
+          <h1>
+            <span class="typing-wrap">
+              <span class="typed-text" id="typed-text"></span>
+              <span class="cursor" id="cursor"></span>
+            </span>
+            <span class="ghost">Team.</span>
+          </h1>
+
+          <p class="hero-copy">
+            Six students building an end-to-end AI and machine learning system that predicts student performance from academic patterns, engagement signals, and behavior data with clear explainability and action-ready insights.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#project" class="button primary">Explore project</a>
+            <a href="#members" class="button secondary">Meet the team</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-value">6</div>
+              <div class="stat-label">Members</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">12+</div>
+              <div class="stat-label">Features</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">3</div>
+              <div class="stat-label">Classes</div>
+            </div>
+          </div>
         </div>
-        <div>
-          <div class="hero-stat-val">1</div>
-          <div class="hero-stat-key">year</div>
+
+        <div class="dashboard reveal">
+          <div class="dashboard-top">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span style="font-size:0.68rem; color: var(--muted); letter-spacing:0.1em; text-transform: uppercase;">Model Monitor</span>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <span>Accuracy</span>
+              <span class="trend">▲ 12.4%</span>
+            </div>
+            <div class="score">92.8%</div>
+            <div class="bars" aria-label="Performance bars">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+
+          <div class="mini-grid">
+            <div class="mini-card">
+              <div class="mini-label">Predictions</div>
+              <div class="mini-value">8.4k</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">Recall</div>
+              <div class="mini-value">89%</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">F1 Score</div>
+              <div class="mini-value">0.91</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">Cohort</div>
+              <div class="mini-value">2025</div>
+            </div>
+          </div>
         </div>
-        <div>
-          <div class="hero-stat-val">ML</div>
-          <div class="hero-stat-key">domain</div>
+      </div>
+    </section>
+
+    <section class="section" id="project">
+      <div class="container">
+        <div class="section-title reveal">
+          <h2>Project Overview</h2>
+          <span class="section-tag">AI-powered student insight</span>
+        </div>
+
+        <div class="metrics-grid reveal">
+          <div class="metric-card">
+            <div class="big">5+</div>
+            <p>Classifier models benchmarked on the same dataset split for reliable comparison.</p>
+          </div>
+          <div class="metric-card">
+            <div class="big">12+</div>
+            <p>Academic and behavioral features such as attendance, test performance, and engagement.</p>
+          </div>
+          <div class="metric-card">
+            <div class="big">3</div>
+            <p>Prediction classes: low, medium, and high performance outcomes for actionable labels.</p>
+          </div>
+          <div class="metric-card">
+            <div class="big">100%</div>
+            <p>Open-source workflow using low-cost, accessible tools and free-tier infrastructure.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    </section>
 
-<!-- MEMBERS -->
-<div class="members-section" id="members">
-  <div class="members-header">
-    <h2>Who we are</h2>
-    <span>6 members</span>
-  </div>
+    <section class="section">
+      <div class="container">
+        <div class="section-title reveal">
+          <h2>What the system does</h2>
+          <span class="section-tag">Built for clarity</span>
+        </div>
 
-  <div class="member-list">
+        <div class="feature-grid reveal">
+          <article class="feature-card">
+            <div>
+              <div class="feature-icon">◎</div>
+              <h3>Data Pipelines</h3>
+            </div>
+            <p>Data cleaning, preprocessing, feature engineering, and transformation for smooth model training on real academic data.</p>
+          </article>
 
-    <!-- Shahnewaz -->
-    <div class="member-row reveal">
-      <div class="member-card-top">
-        <div class="member-index">01</div>
-        <div class="member-tag lead">Lead</div>
-      </div>
-      <div class="member-avatar">
-        <img src="https://github.com/heysanzu.png" alt="Shahnewaz"
-          onerror="this.parentNode.innerHTML='<div class=\'member-avatar-fallback\'>SH</div>'">
-      </div>
-      <div class="member-identity">
-        <div class="member-name">Shahnewaz</div>
-        <div class="member-role">Project Lead · AI</div>
-        <div class="member-handle">@heysanzu</div>
-      </div>
-    </div>
+          <article class="feature-card">
+            <div>
+              <div class="feature-icon">∑</div>
+              <h3>Model Benchmarking</h3>
+            </div>
+            <p>Multiple machine learning algorithms are evaluated using consistent metrics to identify the most effective approach.</p>
+          </article>
 
-    <!-- Akash -->
-    <div class="member-row reveal">
-      <div class="member-card-top">
-        <div class="member-index">02</div>
-        <div class="member-tag">Member</div>
+          <article class="feature-card">
+            <div>
+              <div class="feature-icon">▣</div>
+              <h3>Explainability</h3>
+            </div>
+            <p>Confusion matrices, feature importance plots, and trend analysis highlight which inputs actually influence outcomes.</p>
+          </article>
+        </div>
       </div>
-      <div class="member-avatar">
-        <img src="https://github.com/deepakashmandal.png" alt="Akash"
-          onerror="this.parentNode.innerHTML='<div class=\'member-avatar-fallback\'>AK</div>'">
-      </div>
-      <div class="member-identity">
-        <div class="member-name">Akash</div>
-        <div class="member-role">ML Engineer</div>
-        <div class="member-handle">@deepakashmandal</div>
-      </div>
-    </div>
+    </section>
 
-    <!-- Abhishek -->
-    <div class="member-row reveal">
-      <div class="member-card-top">
-        <div class="member-index">03</div>
-        <div class="member-tag">Member</div>
-      </div>
-      <div class="member-avatar">
-        <img src="https://github.com/Aprav-X.png" alt="Abhishek"
-          onerror="this.parentNode.innerHTML='<div class=\'member-avatar-fallback\'>AV</div>'">
-      </div>
-      <div class="member-identity">
-        <div class="member-name">Abhishek</div>
-        <div class="member-role">Backend Dev</div>
-        <div class="member-handle">@Aprav-X</div>
-      </div>
-    </div>
+    <section class="section" id="members">
+      <div class="container">
+        <div class="section-title reveal">
+          <h2>Who we are</h2>
+          <span class="section-tag">6 members</span>
+        </div>
 
-    <!-- Kriti -->
-    <div class="member-row reveal">
-      <div class="member-card-top">
-        <div class="member-index">04</div>
-        <div class="member-tag">Member</div>
-      </div>
-      <div class="member-avatar">
-        <img src="https://github.com/itskriti-s.png" alt="Kriti"
-          onerror="this.parentNode.innerHTML='<div class=\'member-avatar-fallback\'>KR</div>'">
-      </div>
-      <div class="member-identity">
-        <div class="member-name">Kriti</div>
-        <div class="member-role">Data Engineer</div>
-        <div class="member-handle">@itskriti-s</div>
-      </div>
-    </div>
+        <div class="team-grid reveal">
+          <article class="member-card">
+            <div class="member-top">
+              <span>01</span>
+              <span class="member-tag lead">Leader</span>
+            </div>
+            <div class="member-avatar">
+              <img src="https://github.com/heysanzu.png" alt="Shahnewaz" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%2256%22 viewBox=%220 0 56 56%22%3E%3Crect width=%2256%22 height=%2256%22 fill=%22%23f1efec%22/%3E%3Ctext x=%2250%25%22 y=%2254%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2218%22 font-family=%22Arial%22 fill=%22%235a5a5a%22%3ESH%3C/text%3E%3C/svg%3E';" />
+            </div>
+            <div class="member-name">Shahnewaz</div>
+            <div class="member-role">Project Lead · AI</div>
+            <div class="member-handle">@heysanzu</div>
+          </article>
 
-    <!-- Nisha -->
-    <div class="member-row reveal">
-      <div class="member-card-top">
-        <div class="member-index">05</div>
-        <div class="member-tag">Member</div>
-      </div>
-      <div class="member-avatar">
-        <img src="https://github.com/nishamahato114-svg.png" alt="Nisha"
-          onerror="this.parentNode.innerHTML='<div class=\'member-avatar-fallback\'>NI</div>'">
-      </div>
-      <div class="member-identity">
-        <div class="member-name">Nisha</div>
-        <div class="member-role">Research Analyst</div>
-        <div class="member-handle">@nishamahato114-svg</div>
-      </div>
-    </div>
+          <article class="member-card">
+            <div class="member-top">
+              <span>02</span>
+              <span class="member-tag">Member</span>
+            </div>
+            <div class="member-avatar">
+              <img src="https://github.com/deepakashmandal.png" alt="Akash" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%2256%22 viewBox=%220 0 56 56%22%3E%3Crect width=%2256%22 height=%2256%22 fill=%22%23f1efec%22/%3E%3Ctext x=%2250%25%22 y=%2254%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2218%22 font-family=%22Arial%22 fill=%22%235a5a5a%22%3EAK%3C/text%3E%3C/svg%3E';" />
+            </div>
+            <div class="member-name">Akash</div>
+            <div class="member-role">ML Engineer</div>
+            <div class="member-handle">@deepakashmandal</div>
+          </article>
 
-    <!-- Sandip -->
-    <div class="member-row reveal">
-      <div class="member-card-top">
-        <div class="member-index">06</div>
-        <div class="member-tag">Member</div>
+          <article class="member-card">
+            <div class="member-top">
+              <span>03</span>
+              <span class="member-tag">Member</span>
+            </div>
+            <div class="member-avatar">
+              <img src="https://github.com/Aprav-X.png" alt="Abhishek" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%2256%22 viewBox=%220 0 56 56%22%3E%3Crect width=%2256%22 height=%2256%22 fill=%22%23f1efec%22/%3E%3Ctext x=%2250%25%22 y=%2254%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2218%22 font-family=%22Arial%22 fill=%22%235a5a5a%22%3EAV%3C/text%3E%3C/svg%3E';" />
+            </div>
+            <div class="member-name">Abhishek</div>
+            <div class="member-role">Backend Dev</div>
+            <div class="member-handle">@Aprav-X</div>
+          </article>
+
+          <article class="member-card">
+            <div class="member-top">
+              <span>04</span>
+              <span class="member-tag">Member</span>
+            </div>
+            <div class="member-avatar">
+              <img src="https://github.com/itskriti-s.png" alt="Kriti" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%2256%22 viewBox=%220 0 56 56%22%3E%3Crect width=%2256%22 height=%2256%22 fill=%22%23f1efec%22/%3E%3Ctext x=%2250%25%22 y=%2254%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2218%22 font-family=%22Arial%22 fill=%22%235a5a5a%22%3EKR%3C/text%3E%3C/svg%3E';" />
+            </div>
+            <div class="member-name">Kriti</div>
+            <div class="member-role">Data Engineer</div>
+            <div class="member-handle">@itskriti-s</div>
+          </article>
+
+          <article class="member-card">
+            <div class="member-top">
+              <span>05</span>
+              <span class="member-tag">Member</span>
+            </div>
+            <div class="member-avatar">
+              <img src="https://github.com/nishamahato114-svg.png" alt="Nisha" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%2256%22 viewBox=%220 0 56 56%22%3E%3Crect width=%2256%22 height=%2256%22 fill=%22%23f1efec%22/%3E%3Ctext x=%2250%25%22 y=%2254%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2218%22 font-family=%22Arial%22 fill=%22%235a5a5a%22%3ENI%3C/text%3E%3C/svg%3E';" />
+            </div>
+            <div class="member-name">Nisha</div>
+            <div class="member-role">Research Analyst</div>
+            <div class="member-handle">@nishamahato114-svg</div>
+          </article>
+
+          <article class="member-card">
+            <div class="member-top">
+              <span>06</span>
+              <span class="member-tag">Member</span>
+            </div>
+            <div class="member-avatar">
+              <img src="https://github.com/sandip-098.png" alt="Sandip" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%2256%22 viewBox=%220 0 56 56%22%3E%3Crect width=%2256%22 height=%2256%22 fill=%22%23f1efec%22/%3E%3Ctext x=%2250%25%22 y=%2254%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2218%22 font-family=%22Arial%22 fill=%22%235a5a5a%22%3ESA%3C/text%3E%3C/svg%3E';" />
+            </div>
+            <div class="member-name">Sandip</div>
+            <div class="member-role">Frontend Dev</div>
+            <div class="member-handle">@sandip-098</div>
+          </article>
+        </div>
       </div>
-      <div class="member-avatar">
-        <img src="https://github.com/sandip-098.png" alt="Sandip"
-          onerror="this.parentNode.innerHTML='<div class=\'member-avatar-fallback\'>SA</div>'">
+    </section>
+
+    <section class="section" id="stack">
+      <div class="container">
+        <div class="section-title reveal">
+          <h2>Tools & technologies</h2>
+          <span class="section-tag">Production-ready stack</span>
+        </div>
+
+        <div class="stack-grid reveal">
+          <div class="stack-item"><strong>Python</strong><span>Core language</span></div>
+          <div class="stack-item"><strong>scikit-learn</strong><span>ML library</span></div>
+          <div class="stack-item"><strong>PyTorch</strong><span>Deep learning</span></div>
+          <div class="stack-item"><strong>Pandas · NumPy</strong><span>Data processing</span></div>
+          <div class="stack-item"><strong>FastAPI</strong><span>API backend</span></div>
+          <div class="stack-item"><strong>Google Colab</strong><span>Training</span></div>
+          <div class="stack-item"><strong>Matplotlib · Seaborn</strong><span>Visualization</span></div>
+          <div class="stack-item"><strong>GitHub</strong><span>Version control</span></div>
+        </div>
       </div>
-      <div class="member-identity">
-        <div class="member-name">Sandip</div>
-        <div class="member-role">Frontend Dev</div>
-        <div class="member-handle">@sandip-098</div>
+    </section>
+
+    <section class="cta" id="github">
+      <div class="container">
+        <div class="cta-box reveal">
+          <div>
+            <h3>The full codebase is open.</h3>
+            <p>Dataset, reports, notebooks, and model outputs are shared on GitHub for review and reuse.</p>
+          </div>
+          <a href="https://github.com/heysanzu/RAYBYTE" target="_blank" rel="noopener" class="button primary">Open repository</a>
+        </div>
       </div>
-    </div>
+    </section>
+  </main>
 
-  </div>
-</div>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>RAYBYTE · BCA Final Year 2025–26</span>
+      <span>@heysanzu</span>
+    </div>
+  </footer>
 
-<!-- ABOUT / PROJECT STRIP -->
-<div class="about-strip" id="project">
-  <div class="about-inner reveal">
-    <div class="about-left">
-      <h2>What we're building together.</h2>
-      <p>
-        An end-to-end classifier pipeline over a real-world student dataset — five ML models, twelve input features, three performance classes. Full explainability through confusion matrices, heatmaps, and importance plots. Open-source, free-tier infrastructure throughout.
-      </p>
-    </div>
-    <div class="about-right reveal">
-      <div class="about-metric">
-        <div class="about-metric-val">5<sup>+</sup></div>
-        <div class="about-metric-label">Classifiers benchmarked on identical splits</div>
-      </div>
-      <div class="about-metric">
-        <div class="about-metric-val">12<sup>+</sup></div>
-        <div class="about-metric-label">Input features — attendance, engagement, demographics</div>
-      </div>
-      <div class="about-metric">
-        <div class="about-metric-val">3</div>
-        <div class="about-metric-label">Prediction classes — Low, Medium, High</div>
-      </div>
-      <div class="about-metric">
-        <div class="about-metric-val">100<sup>%</sup></div>
-        <div class="about-metric-label">Open-source, free-tier infrastructure</div>
-      </div>
-    </div>
-  </div>
-</div>
+  <script>
+    (function () {
+      const textEl = document.getElementById('typed-text');
+      const cursor = document.getElementById('cursor');
+      if (!textEl) return;
 
-<!-- STACK -->
-<div class="skills-section reveal" id="stack">
-  <h2>Tools &amp; technologies</h2>
-  <div class="skills-grid">
-    <div class="skill-cell">
-      <div class="skill-name">Python</div>
-      <div class="skill-cat">Core Language</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-name">scikit-learn</div>
-      <div class="skill-cat">ML Library</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-name">PyTorch</div>
-      <div class="skill-cat">Deep Learning</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-name">Pandas · NumPy</div>
-      <div class="skill-cat">Data Processing</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-name">FastAPI</div>
-      <div class="skill-cat">API Backend</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-name">Google Colab</div>
-      <div class="skill-cat">Training Environment</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-name">Matplotlib · Seaborn</div>
-      <div class="skill-cat">Visualization</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-name">GitHub</div>
-      <div class="skill-cat">Version Control</div>
-    </div>
-  </div>
-</div>
+      const word = 'RAYBYTE';
+      let index = 0;
 
-<!-- GITHUB -->
-<div class="github-section reveal">
-  <div class="github-block">
-    <div>
-      <h3>The full codebase is open.</h3>
-      <p>Dataset, classifier code, notebooks, and visual outputs — all on GitHub.</p>
-    </div>
-    <a href="https://github.com/heysanzu/RAYBYTE" target="_blank" rel="noopener" class="btn-dark">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-      heysanzu/RAYBYTE
-    </a>
-  </div>
-</div>
+      function type() {
+        textEl.textContent = word.slice(0, index);
+        index += 1;
 
-<!-- FOOTER -->
-<footer>
-  <span class="footer-left">RAYBYTE · BCA Final Year 2025–26</span>
-  <span class="footer-right">@heysanzu</span>
-</footer>
+        if (index <= word.length) {
+          setTimeout(type, 120);
+        } else if (cursor) {
+          setTimeout(() => {
+            cursor.style.display = 'none';
+          }, 900);
+        }
+      }
 
-<script>
-/* TYPING ANIMATION */
-(function(){
-  const el = document.getElementById('typed-text');
-  const cursor = document.getElementById('typed-cursor');
-  if (!el) return;
-  const word = 'RAYBYTE';
-  let i = 0;
-  function type() {
-    if (i <= word.length) {
-      el.textContent = word.slice(0, i);
-      i++;
-      setTimeout(type, i === 1 ? 300 : 110);
-    } else {
-      // stop blinking cursor after done
-      setTimeout(() => { if (cursor) cursor.style.display = 'none'; }, 1200);
-    }
-  }
-  type();
-})();
+      type();
+    })();
 
-/* MOBILE NAV */
-(function(){
-  const toggle = document.getElementById('nav-toggle');
-  const menu = document.getElementById('mobile-menu');
-  if (!toggle || !menu) return;
-  toggle.addEventListener('click', () => {
-    const open = menu.classList.toggle('open');
-    toggle.classList.toggle('open', open);
-  });
-  menu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      menu.classList.remove('open');
-      toggle.classList.remove('open');
-    });
-  });
-})();
+    (function () {
+      const navButtons = document.querySelectorAll('.nav-btn');
+      navButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const targetId = button.dataset.target;
+          const target = document.getElementById(targetId);
 
-/* SCROLL REVEAL */
-(function(){
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-})();
-</script>
+          navButtons.forEach((btn) => btn.classList.toggle('active', btn === button));
+
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    })();
+
+    (function () {
+      const cards = document.querySelectorAll('.feature-card, .member-card, .stack-item, .metric-card');
+
+      cards.forEach((card) => {
+        const updateCard = (x, y) => {
+          const rect = card.getBoundingClientRect();
+          const px = (x - rect.left) / rect.width;
+          const py = (y - rect.top) / rect.height;
+          const rotateY = (px - 0.5) * 14;
+          const rotateX = (0.5 - py) * 14;
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        };
+
+        card.addEventListener('pointermove', (event) => {
+          updateCard(event.clientX, event.clientY);
+        });
+
+        card.addEventListener('pointerleave', () => {
+          card.style.transform = '';
+        });
+
+        card.addEventListener('touchmove', (event) => {
+          const touch = event.touches[0];
+          if (touch) updateCard(touch.clientX, touch.clientY);
+        }, { passive: true });
+
+        card.addEventListener('touchend', () => {
+          card.style.transform = '';
+        });
+      });
+    })();
+
+    (function () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    })();
+  </script>
 </body>
 </html>
