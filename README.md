@@ -2,6 +2,7 @@
 RAYBYTE builds a classifier pipeline over a real-world student dataset, trains multiple ML models, then surfaces the most predictive features through confusion matrices, heatmaps, and importance plots.
 
 [![Live](https://img.shields.io/badge/▶_Live-grey?style=for-the-badge)](https://heysanzu.github.io/rayByte)
+
 ![Thumbnail](src/raybyteUI.png)
 
 ---
@@ -20,7 +21,7 @@ We implemented and compared various classifiers and ML models to achieve the mos
 
 ---
 
-## Team Information (2025–26)
+## Team (2025–26)
 
 - **Leader:** <img src="https://github.com/heysanzu.png" width="22" height="22" style="border-radius: 50%; vertical-align: middle;"> Shahnewaz [`@heysanzu`](https://github.com/heysanzu)
 - **Co-Leader 1:** <img src="https://github.com/Aprav-X.png" width="22" height="22" style="border-radius: 50%; vertical-align: middle;"> Abhishek [`@Aprav-X`](https://github.com/Aprav-X)
