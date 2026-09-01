@@ -1,4 +1,9 @@
-# Grade Prediction (AI & ML)
+# What are we solving?
+RAYBYTE builds a classifier pipeline over a real-world student dataset, trains multiple ML models, then surfaces the most predictive features through confusion matrices, heatmaps, and importance plots.
+
+---
+
+## Grade Prediction (AI & ML)
 
 This is a machine learning project that uses classification algorithms to predict the factors most heavily affecting student grades, utilizing data from a CSV file.
 
@@ -9,6 +14,8 @@ We implemented and compared various classifiers and ML models to achieve the mos
 > [!NOTE]
 > This is a preview version (Demo Project) used to test core features.
 > The final project is coming soon with full updates!
+
+---
 
 ## Team Information (2025–26)
 
